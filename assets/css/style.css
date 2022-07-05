@@ -111,9 +111,8 @@
   
   .progress {
     width: 100%;
-    -webkit-appearance: none;
     height: 6px;
-    background:#06cee8;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(30,180,134,1) 0%, rgba(0,212,255,1) 100%);
     outline: none;
     opacity: 0.7;
     -webkit-transition: 0.2s;
@@ -121,17 +120,46 @@
   }
   
   .progress::-webkit-slider-thumb {
-    -webkit-appearance: none;
     appearance: none;
     width: 12px;
     height: 6px;
     background-color: var(--primary-color);
     cursor: pointer;
   }
-  
+  .timer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .slider_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .volume_slider{
+    height: 4px;
+    background:#06cee8;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    margin-left: 6px;
+  }
+  .volume_slider::-webkit-slider-thumb {
+    
+    width: 12px;
+    height: 4px;
+    background-color: var(--primary-color);
+    cursor: pointer;
+  }
+  .icon-vol{
+    color: #06cee8;
+  }
   /* PLAYLIST */
   .playlist {
-    margin-top: 408px;
+    height: 6px;
+    margin-top: 445px;
     padding: 12px;
   }
   
@@ -146,7 +174,7 @@
   }
   
   .song.active {
-    background-color: #06cee8;
+    background: #00cfff;
   }
   
   .song:active {
