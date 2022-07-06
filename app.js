@@ -18,7 +18,10 @@ const playlist = $('.playlist')
 const currentnum = $('.currentTimes')
 const durationnum = $('.durationTimes')
 const volumeBtn = $('.volume_slider')
-const curr_track = document.createElement('audio');
+const volChange = $('.icon-vol')
+const volUp = $('.icon-up')
+const volDown = $('.icon-down')
+const control = $('.controling')
 const app = {
     currentIndex: 0,
     isPlaying: false,
@@ -280,6 +283,7 @@ const app = {
             _this.isPlaying = true
             player.classList.add('playing')
             cdThumbAnimate.play()
+            
         }
         //xử lí chưa chạy
         audio.onpause = function(){
@@ -289,36 +293,97 @@ const app = {
 
         }
 
+
+
+    
+
+        //xử lí thanh volume
+        volumeBtn.oninput = function(){
+            audio.volume = (volumeBtn.value / 100)
+            if (audio.volume <0.14){
+                control.classList.add('mute')
+                control.classList.remove('hideup')
+                control.classList.remove('showup')
+
+            }else if(audio.volume >= 0.14 && audio.volume <0.7 ){
+                control.classList.add('hideup')
+                control.classList.remove('showup')
+                control.classList.remove('mute')
+
+            }else if (audio.volume >= 0.7){
+                control.classList.add('showup')
+                control.classList.remove('hideup')
+                control.classList.remove('mute')
+
+            }
+           
+
+               
+        }
+        volChange.onclick = function(){
+            volumeBtn.value = 0
+            audio.volume = (volumeBtn.value / 100)
+        }
+
+
+
+        
         //thanh tiến độ thay đổi theo bài hát
         audio.ontimeupdate = function(){
             if(audio.duration){
                 const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
                 progress.value = progressPercent
-                //hiện thời lượng bài hát
-                let currentTimes = audio.currentTime
-                let currentMins = Math.floor(currentTimes / 60)
-                let currentSeconds = Math.floor(currentTimes % 60)
-                currentnum.innerText = `${currentMins}:${currentSeconds}`
-    
-              
 
+                 //hiện thời lượng bài hát
+             let currentTimes = audio.currentTime
+             let currentMins = Math.floor(currentTimes / 60)
+             let currentSeconds = Math.floor(currentTimes % 60)
+             currentnum.innerText = `${currentMins}:${currentSeconds}`
+             if(currentSeconds < 10){
+                currentnum.innerText = `${currentMins}:0${currentSeconds}`
+             }
+               
             }
 
-            
-
-
         }
-        
         audio.addEventListener("loadeddata", ()=>{
-          
 
-
+            
+                
+            
+            //hiện thời gian tổng bài hát
             let durationTime = audio.duration
             let mins = Math.floor(durationTime / 60)
             let seconds = Math.floor(durationTime % 60)
             durationnum.innerText = `${mins}:${seconds}`
-         
+
+            if(seconds < 10){
+                seconds = `0${seconds}`
+                durationnum.innerText = `${mins}:${seconds}`
+            }else{
+                durationnum.innerText = `${mins}:${seconds}`
+            }
+
+
+          
         })
+/*         audio.addEventListener("loadeddata", ()=>{
+            
+            //hiện thời lượng bài hát
+            let currentTimes = audio.currentTime
+            let currentMins = Math.floor(currentTimes / 60)
+            let currentSeconds = Math.floor(currentTimes % 60)
+            currentnum.innerText = `${currentMins}:${currentSeconds}`
+            if(currentSeconds < 10){
+                currentSeconds = `0${currentSeconds}`
+                durationnum.innerText = `${currentMins}:${currentSeconds}`
+            }else{
+                durationnum.innerText = `${currentMins}:${currentSeconds}`
+
+            }
+
+          
+        }) */
 
         //next khi hết bài 
         audio.onended = function () {
@@ -328,9 +393,9 @@ const app = {
                 nextBtn.click()
             }
         }
-        volumeBtn.onchange = function(){
-            audio.volume()
-        }
+ /*       volumeBtn.oninput = function(){
+            audio.volume  = volumeBtn.value
+       } */
         // tua bài hát 
         progress.oninput = function(e){
             const seekTime =  audio.duration / 100 * e.target.value 

@@ -36,7 +36,53 @@
   .player.playing .icon-play {
     display: none;
   }
-  
+  .icon-off{
+    display: none;
+    color: #00cfff;
+    margin-bottom: 4px;
+  }
+  .icon-down{
+    color: #00cfff;
+    margin-bottom: 4px;
+    display: none;
+  }
+  .icon-up{
+    color: #00cfff;
+    margin-bottom: 4px;
+  }
+
+
+  .controling.hideup .icon-off{
+    display: none;
+   }
+   .controling.hideup .icon-down{
+    display: inline-block;
+   }
+ .controling.hideup .icon-up{
+  display: none;
+ }
+ /* hiện nút mute */
+ .controling.mute .icon-off{
+  display: inline-block;
+ }
+ .controling.mute .icon-down{
+  display: none;
+ }
+.controling.mute .icon-up{
+display: none;
+}
+/* hiện up */
+ /* hiện nút mute */
+ .controling.showup .icon-off{
+  display: none;
+ }
+ .controling.showup .icon-down{
+  display: none;
+ }
+.controling.showup .icon-up{
+display: inline-block;
+}
+ 
   .dashboard {
     padding: 16px 16px 14px;
     background-color: #fff;
@@ -159,7 +205,7 @@
   /* PLAYLIST */
   .playlist {
     height: 6px;
-    margin-top: 445px;
+    margin-top: 480px;
     padding: 12px;
   }
   
@@ -176,7 +222,7 @@
   .song.active {
     background: #00cfff;
   }
-  
+
   .song:active {
     opacity: 0.8;
   }

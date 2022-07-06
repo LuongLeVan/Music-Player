@@ -54,8 +54,12 @@
       <span class="durationTimes"></span>
     </div>
     <div class="slider_container">
-      <i class="fa fa-volume-down icon-vol"></i>
-       <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+      <div class="controling ">
+      <i class="fa fa-volume-off  icon-off"></i>
+      <i class="fa fa-volume-down icon-vol  icon-down"></i>
+      <i class="fa fa-volume-up icon-vol icon-up "></i>
+      </div>
+       <input type="range" min="1" max="100" value="99" class="volume_slider" >
   </div>
 
     <audio id="audio" src=""></audio>
