@@ -23,12 +23,13 @@ const volUp = $('.icon-up')
 const volDown = $('.icon-down')
 const volOff = $('.icon-off')
 const control = $('.controling')
-let max = 0
 let valueNumOld = 100
+let max = 0
 let valueNumOld1 = 0
 let valueNumOld2 = 0
 let valueNumOld3 = 0
 const app = {
+    indexSongs: [],
     currentIndex: 0,
     isPlaying: false,
     isRandom: false,
@@ -308,16 +309,18 @@ const app = {
 
         //xử lí thanh volume
         volumeBtn.oninput = function(){
+            audio.volume = (volumeBtn.value / 100)
             if(audio.volume <0.14 ){
                 valueNumOld3 = volumeBtn.value 
                 valueNumOld = valueNumOld3
-               
+
                 control.classList.add('mute')
                 control.classList.remove('hideup')
                 control.classList.remove('showup')
             }else if(audio.volume >= 0.14 && audio.volume <0.7){
                 valueNumOld2 = volumeBtn.value 
                 valueNumOld = valueNumOld2
+
                 control.classList.add('hideup')
                 control.classList.remove('showup')
                 control.classList.remove('mute')
@@ -325,25 +328,31 @@ const app = {
             }else if(audio.volume >= 0.7){
                 valueNumOld1 = volumeBtn.value 
                 valueNumOld = valueNumOld1
+
                 control.classList.add('showup')
                 control.classList.remove('hideup')
                 control.classList.remove('mute')
-
-
             }
-            audio.volume = (volumeBtn.value / 100)
+
+
+            // xử lí bật tắt icon
             if (audio.volume <0.14){
-                valueNumOld1 = volumeBtn.value  
-                console.log('valueNumOld1',valueNumOld1)
+                valueNumOld3 = volumeBtn.value  
+                console.log('valueNumOld1',valueNumOld3)
 
 
             }else if(audio.volume >= 0.14 && audio.volume <0.7 ){
                 valueNumOld2 = volumeBtn.value  
                 console.log('valueNumOld2',valueNumOld2)
 
-            }else if (audio.volume >= 0.7 && audio.volume <= 1){
-                valueNumOld3 = volumeBtn.value  
-                console.log('valueNumOld3',valueNumOld3)
+            }else if (audio.volume >= 0.7 ){
+                valueNumOld1 = volumeBtn.value
+                if(valueNumOld1) {
+                    /* control.classList.add('showup')
+                    control.classList.remove('hideup')
+                    control.classList.remove('mute') */
+                    console.log('valueNumOld1',valueNumOld1)
+                }
 
 
             }
@@ -357,27 +366,11 @@ const app = {
         }
 
         volOff.onclick = function(){
+            
             if(volumeBtn.value ==0){
-                
-                volumeBtn.value = valueNumOld
+                volumeBtn.value = valueNumOld 
                 audio.volume = (volumeBtn.value / 100)
-                if(audio.volume <0.14 ){
-                  
-                    control.classList.add('mute')
-                    control.classList.remove('hideup')
-                    control.classList.remove('showup')
-                }else if(audio.volume >= 0.14 && audio.volume <0.7){
-                    control.classList.add('hideup')
-                    control.classList.remove('showup')
-                    control.classList.remove('mute')
-    
-                }else if(audio.volume >= 0.7){
-                    control.classList.add('showup')
-                    control.classList.remove('hideup')
-                    control.classList.remove('mute')
-    
-    
-                }
+                
             }else{
                 volumeBtn.value = 0
                 audio.volume = (volumeBtn.value / 100)
@@ -448,7 +441,9 @@ const app = {
                 durationnum.innerText = `${currentMins}:${currentSeconds}`
             }else{
                 durationnum.innerText = `${currentMins}:${currentSeconds}`
+
             }
+
           
         }) */
 
@@ -489,14 +484,24 @@ const app = {
             cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
             audio.src = this.currentSong.path;
     },
+    //random songs
+    playRandomSong() {
+        let newIndex
+        if (this.indexSongs.length === this.songs.length) {
+            this.indexSongs = []
+        }
+        do {
+            newIndex = Math.floor(Math.random() * this.songs.length)
+
+        } while (this.indexSongs.includes(newIndex) || newIndex === this.currentIndex)
+        this.currentIndex = newIndex
+        this.indexSongs.push(newIndex)
+        this.loadCurrentSong()
+    },
     loadConfig: function(){
         this.isRandom = this.config.isRandom
         this.isRepeat = this.config.isRepeat
     },
- /*    setVolume: function(){
-        volumeBtn.onchange = function(){
-               }
-    } */
     nextSong: function(){
         this.currentIndex ++
         if(this.currentIndex >= this.songs.length){
@@ -529,15 +534,6 @@ const app = {
         }
         this.loadCurrentSong()
     },
-    randomSong: function(){
-        let newIndex
-        do {
-            newIndex = Math.floor(Math.random() * this.songs.length)
-        } while (newIndex === this.currentIndex)
-        this.currentIndex = newIndex
-        this.loadCurrentSong()
-    },
-    
         start: function(){
         this.loadConfig()
         //định nghĩa thuộc tính cho obj
