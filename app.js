@@ -21,7 +21,12 @@ const volumeBtn = $('.volume_slider')
 const volChange = $('.icon-vol')
 const volUp = $('.icon-up')
 const volDown = $('.icon-down')
+const volOff = $('.icon-off')
 const control = $('.controling')
+let valueNumOld = 100
+let valueNumOld1 = 0
+let valueNumOld2 = 0
+let valueNumOld3 = 0
 const app = {
     currentIndex: 0,
     isPlaying: false,
@@ -161,6 +166,12 @@ const app = {
             path:'./assets/song/song22.mp3',
             image:'./assets/img/ucoanhday.jpg'
         },
+        {
+            name: 'Là Do Em Xui Thôi',
+            singer: 'SOFIA × KHÓI × CHÂU ĐĂNG KHOA',
+            path:'./assets/song/song23.mp3',
+            image:'./assets/img/ladoemxui.jpg'
+        },
         
         
     ],
@@ -260,12 +271,9 @@ const app = {
             }
           
         }
-        //xử lí volumn 
 
         //xử lí random
         randomBtn.onclick = function(){
-/*                     _this.isRandom = !_this.isRandom
-            randomBtn.classList.toggle('active', _this.isRandom) */
             if(_this.isRandom){
                 _this.isRandom = false
                 randomBtn.classList.remove('active')
@@ -299,35 +307,74 @@ const app = {
 
         //xử lí thanh volume
         volumeBtn.oninput = function(){
-            audio.volume = (volumeBtn.value / 100)
-            if (audio.volume <0.14){
+            if(audio.volume <0.14 ){
+                valueNumOld  = valueNumOld1
                 control.classList.add('mute')
                 control.classList.remove('hideup')
                 control.classList.remove('showup')
-
-            }else if(audio.volume >= 0.14 && audio.volume <0.7 ){
+            }else if(audio.volume >= 0.14 && audio.volume <0.7){
+                valueNumOld  = valueNumOld2
                 control.classList.add('hideup')
                 control.classList.remove('showup')
                 control.classList.remove('mute')
 
-            }else if (audio.volume >= 0.7){
+            }else if(audio.volume >= 0.7){
+                valueNumOld  = valueNumOld3
                 control.classList.add('showup')
                 control.classList.remove('hideup')
                 control.classList.remove('mute')
 
-            }
-           
 
-               
+            }
+            audio.volume = (volumeBtn.value / 100)
+            if (audio.volume <0.14){
+                valueNumOld1 = volumeBtn.value  
+                console.log('valueNumOld1',valueNumOld1)
+
+
+            }else if(audio.volume >= 0.14 && audio.volume <0.7 ){
+                valueNumOld2 = volumeBtn.value  
+                console.log('valueNumOld2',valueNumOld2)
+
+            }else if (audio.volume >= 0.7 && audio.volume <= 1){
+                valueNumOld3 = volumeBtn.value  
+                console.log('valueNumOld3',valueNumOld3)
+
+
+            }
         }
         volChange.onclick = function(){
             volumeBtn.value = 0
             audio.volume = (volumeBtn.value / 100)
+            control.classList.add('mute')
+            control.classList.remove('hideup')
+            control.classList.remove('showup')
         }
 
+        volOff.onclick = function(){
+            if(volumeBtn.value ==0){
+                
+                volumeBtn.value = valueNumOld
+                audio.volume = (volumeBtn.value / 100)
+            }else{
+                volumeBtn.value = 0
+                audio.volume = (volumeBtn.value / 100)
+                control.classList.add('mute')
+                control.classList.remove('hideup')
+                control.classList.remove('showup')
+            }
+            
+        }
 
-
-        
+        volDown.onclick = function(){
+           
+                volumeBtn.value = 0
+                audio.volume = (volumeBtn.value / 100)
+                control.classList.add('mute')
+                control.classList.remove('hideup')
+                control.classList.remove('showup')    
+           
+        }  
         //thanh tiến độ thay đổi theo bài hát
         audio.ontimeupdate = function(){
             if(audio.duration){
