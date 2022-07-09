@@ -61,7 +61,7 @@ const app = {
         },
         {
             name: 'Đi Qua Mùa Hạ',
-            singer: 'Thái Dinh',
+            singer: 'Thái Đinh',
             path:'./assets/song/song1.mp3',
             image:'./assets/img/diquamuaha.jpg'
         },
@@ -173,6 +173,49 @@ const app = {
             path:'./assets/song/song23.mp3',
             image:'./assets/img/ladoemxui.jpg'
         },
+        {
+            name: 'Chẳng Thể Tìm Được Em',
+            singer: 'PhucXp ft Freak D',
+            path:'./assets/song/song24.mp3',
+            image:'./assets/img/24.jpg'
+        },
+        {
+            name: 'Chúng Ta Sau Này',
+            singer: 'TRI x Freak D',
+            path:'./assets/song/song25.mp3',
+            image:'./assets/img/25.jpg'
+        },
+        {
+            name: 'Cô Ấy Nói',
+            singer: 'Ngô Anh Đạt x Freak D',
+            path:'./assets/song/song26.mp3',
+            image:'./assets/img/26.jpg'
+        },
+        {
+            name: 'Đừng Xem Ai Đó Là Cả Thế Giới',
+            singer: 'Reddy x Freak D',
+            path:'./assets/song/song27.mp3',
+            image:'./assets/img/27.jpg'
+        },
+        {
+            name: 'Hạnh Phúc Bỏ Rơi Em',
+            singer: 'Hương Ly x Freak D.',
+            path:'./assets/song/song28.mp3',
+            image:'./assets/img/28.jpg'
+        },
+        {
+            name: 'Kẻ Theo Đuổi Ánh Sáng',
+            singer: 'Huy Vạc x Tiến Nguyễn x Freak D',
+            path:'./assets/song/song29.mp3',
+            image:'./assets/img/29.jpg'
+        },
+        {
+            name: 'Em Còn Dùng Số Này Không',
+            singer: 'Thái Đinh',
+            path:'./assets/song/song30.mp3',
+            image:'./assets/img/30.jpg'
+        },
+
         
         
     ],
